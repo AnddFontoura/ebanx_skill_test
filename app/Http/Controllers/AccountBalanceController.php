@@ -25,8 +25,9 @@ class AccountBalanceController extends Controller
         $data = $request->validated();
 
         $this->accountBalanceService->newBalance($data);
+        $response = $this->accountBalanceService->createResponse($data);
 
-        return response()->json($data, Response::HTTP_OK);
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -36,8 +37,8 @@ class AccountBalanceController extends Controller
     {
         $data = $request->validated();
 
-        $this->accountBalanceService->getBalance($data);
+        $response = $this->accountBalanceService->getBalance($data);
 
-        return response()->json($data, Response::HTTP_OK);
+        return response()->json($response, Response::HTTP_OK);
     }
 }

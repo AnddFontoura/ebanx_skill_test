@@ -9,11 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('account_balances', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->timestamps();
             $table->unsignedBigInteger('account_id');
             $table->integer('type');
-            $table->float('amount', 10, 4);
+            $table->decimal('amount', 10, 2);
             $table->softDeletes();
 
             $table->foreign('account_id')
