@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts_balance_history', function (Blueprint $table) {
+        Schema::create('account_balance_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('account_balance_id');
@@ -23,11 +23,11 @@ return new class extends Migration
 
             $table->foreign('account_id')
                 ->references('id')
-                ->on('account');
+                ->on('accounts');
 
             $table->foreign('account_balance_id')
                 ->references('id')
-                ->on('account_balance');
+                ->on('account_balances');
         });
     }
 

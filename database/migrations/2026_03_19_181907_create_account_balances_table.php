@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('accounts_balance', function (Blueprint $table) {
+        Schema::create('account_balances', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('account_id');
@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->foreign('account_id')
                 ->references('id')
-                ->on('account');
+                ->on('accounts');
         });
     }
 

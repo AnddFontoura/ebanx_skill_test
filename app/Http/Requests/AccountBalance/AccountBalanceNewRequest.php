@@ -16,7 +16,7 @@ class AccountBalanceNewRequest extends FormRequest
         return [
             'type' => 'required|string',
             'amount' => 'required|numeric',
-            'origin' => 'required|string',
+            'origin' => 'nullable|string',
             'destination' => 'nullable|string',
         ];
     }

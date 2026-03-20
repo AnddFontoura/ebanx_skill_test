@@ -2,13 +2,13 @@
 
 namespace App\Repository\Account;
 
-use App\Models\Account;
+use App\Models\Accounts;
 use App\Repository\BaseRepository;
 
 class AccountRepository extends BaseRepository
 {
     public function __construct(
-        protected Account $model
+        protected Accounts $model
     ) {
 
     }

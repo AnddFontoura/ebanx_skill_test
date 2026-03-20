@@ -18,6 +18,7 @@ class AccountBalanceController extends Controller
 
     /**
      * @throws \Exception
+     * @throws \Throwable
      */
     public function newBalance(AccountBalanceNewRequest $request): JsonResponse
     {
@@ -28,6 +29,9 @@ class AccountBalanceController extends Controller
         return response()->json($data, Response::HTTP_OK);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function getBalance(AccountBalanceRequest $request): JsonResponse
     {
         $data = $request->validated();
