@@ -34,14 +34,16 @@ class AccountBalanceService
     public function newBalance(array $data): void
     {
         $transactionType = AccountBalanceEnum::tryFromName($data['type']);
-        $isValidAccount = $this->accountRepository->getById($data['origin']);
+
+        if (isset($data['origin'])) {
+            $isValidAccount = $this->accountRepository->getById($data['origin']);
+            throw_if(!$isValidAccount, new NotFoundHttpException('0'));
+        }
 
         if (isset($data['destination'])) {
             $isValidDestinationAccount = $this->accountRepository->getById($data['destination']);
             throw_if(!$isValidDestinationAccount, new NotFoundHttpException('0'));
         }
-
-        throw_if(!$isValidAccount, new NotFoundHttpException('0'));
 
         match ($transactionType) {
             AccountBalanceEnum::deposit => $this->newBalanceDeposit($data),
