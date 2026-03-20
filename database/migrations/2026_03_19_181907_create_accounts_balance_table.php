@@ -6,23 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('account', function (Blueprint $table) {
+        Schema::create('accounts_balance', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('account_id');
+            $table->integer('type');
+            $table->float('amount', 10, 4);
             $table->softDeletes();
+
+            $table->foreign('account_id')
+                ->references('id')
+                ->on('account');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('account');
+        Schema::dropIfExists('account_balance');
     }
 };

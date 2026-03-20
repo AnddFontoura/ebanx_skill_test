@@ -7,6 +7,7 @@ use App\Repository\Account\AccountRepository;
 use App\Repository\AccountBalance\AccountBalanceRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AccountBalanceService
 {
@@ -16,6 +17,14 @@ class AccountBalanceService
     ) {
 
     }
+
+    public function getBalance(array $data)
+    {
+        $account = $this->accountRepository->getById($data['account_id']);
+
+        throw_if(!$account, new NotFoundHttpException('0'));
+    }
+
     public function newBalance(array $data)
     {
         $transactionType = AccountBalanceEnum::tryFromName($data['type']);
@@ -23,10 +32,10 @@ class AccountBalanceService
 
         if (isset($data['destination'])) {
             $isValidDestinationAccount = $this->accountRepository->getById($data['destination']);
-            throw_if(!$isValidDestinationAccount, new \Exception('0', Response::HTTP_NOT_FOUND));
+            throw_if(!$isValidDestinationAccount, new NotFoundHttpException('0'));
         }
 
-        throw_if(!$isValidAccount, new Exception('0', Response::HTTP_NOT_FOUND));
+        throw_if(!$isValidAccount, new NotFoundHttpException('0'));
 
         match ($transactionType) {
             AccountBalanceEnum::deposit,

@@ -14,7 +14,7 @@ class AccountBalanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'account_id' => 'required|integer|exists:account,id',
+            'account_id' => 'required|integer',
         ];
     }
 }

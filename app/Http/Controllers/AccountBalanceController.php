@@ -30,6 +30,10 @@ class AccountBalanceController extends Controller
 
     public function getBalance(AccountBalanceRequest $request): JsonResponse
     {
+        $data = $request->validated();
 
+        $this->accountBalanceService->getBalance($data);
+
+        return response()->json($data, Response::HTTP_OK);
     }
 }
