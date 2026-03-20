@@ -1,13 +1,12 @@
 <?php
 
-namespace AccountBalance;
+namespace App\Service\AccountBalance;
 
-use Account\AccountRepository;
-use AccountBalanceRepository;
 use App\AccountBalanceEnum;
-use App\Models\AccountBalance;
+use App\Repository\Account\AccountRepository;
+use App\Repository\AccountBalance\AccountBalanceRepository;
 use Exception;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AccountBalanceService
 {
@@ -24,16 +23,16 @@ class AccountBalanceService
 
         if (isset($data['destination'])) {
             $isValidDestinationAccount = $this->accountRepository->getById($data['destination']);
-            throw_if(!$isValidDestinationAccount, new \Exception('0', JsonResponse::HTTP_NOT_FOUND));
+            throw_if(!$isValidDestinationAccount, new \Exception('0', Response::HTTP_NOT_FOUND));
         }
 
-        throw_if(!$isValidAccount, new Exception('0', JsonResponse::HTTP_NOT_FOUND));
+        throw_if(!$isValidAccount, new Exception('0', Response::HTTP_NOT_FOUND));
 
         match ($transactionType) {
             AccountBalanceEnum::deposit,
             AccountBalanceEnum::withdraw => $this->newBalanceSave($data),
             AccountBalanceEnum::transfer => $this->newBalanceIsTransfer($data),
-            default => throw new Exception('Invalid transaction type', JsonResponse::HTTP_BAD_REQUEST),
+            default => throw new Exception('Invalid transaction type', Response::HTTP_BAD_REQUEST),
         };
     }
 

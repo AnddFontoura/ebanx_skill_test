@@ -1,6 +1,6 @@
 <?php
 
-namespace Account;
+namespace App\Repository\Account;
 
 use App\Models\Account;
 use App\Repository\BaseRepository;

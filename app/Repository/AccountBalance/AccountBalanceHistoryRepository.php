@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Repository\AccountBalance;
+
 use App\Models\AccountBalanceHistory;
 
 class AccountBalanceHistoryRepository

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Account\AccountRepository;
-use CleanerService;
+use App\Service\Cleaner\CleanerService;
 use Illuminate\Http\Request;
 
 class CleanerController extends Controller

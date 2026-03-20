@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use AccountBalance\AccountBalanceService;
-use AccountBalanceRepository;
 use App\Http\Requests\AccountBalance\AccountBalanceNewRequest;
 use App\Http\Requests\AccountBalance\AccountBalanceRequest;
+use App\Service\AccountBalance\AccountBalanceService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class AccountBalanceController extends Controller
 {
@@ -18,13 +16,16 @@ class AccountBalanceController extends Controller
 
     }
 
+    /**
+     * @throws \Exception
+     */
     public function newBalance(AccountBalanceNewRequest $request): JsonResponse
     {
         $data = $request->validated();
 
         $this->accountBalanceService->newBalance($data);
 
-        return response()->json($data, JsonResponse::HTTP_OK);
+        return response()->json($data, Response::HTTP_OK);
     }
 
     public function getBalance(AccountBalanceRequest $request): JsonResponse
