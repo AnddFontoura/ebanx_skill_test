@@ -15,5 +15,7 @@ class CleanerService
 
     }
     public function clearData() {
+        $this->accountBalanceRepository->clearData();
+        $this->accountBalanceHistoryRepository->clearData();
     }
 }

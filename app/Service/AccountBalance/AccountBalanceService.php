@@ -6,6 +6,7 @@ use App\AccountBalanceEnum;
 use App\Repository\Account\AccountRepository;
 use App\Repository\AccountBalance\AccountBalanceRepository;
 use Exception;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -68,15 +69,23 @@ class AccountBalanceService
         $this->accountBalanceRepository->create($data);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function newBalanceWithdraw(array $data): void
     {
         $data['type'] = AccountBalanceEnum::withdraw->value;
         $data['account_id'] = $data['origin'];
 
-        //Check if account has balance
+        $balance = $this->getBalance($data);
+        throw_if($balance < $data['amount'], new InvalidArgumentException('Insufficient balance'));
+
         $this->accountBalanceRepository->create($data);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function newBalanceIsTransfer(array $data): void
     {
         $this->newBalanceDeposit($data);
