@@ -3,6 +3,7 @@
 namespace App\Service\AccountBalance;
 
 use App\AccountBalanceEnum;
+use App\Exceptions\AccountNotFoundException;
 use App\Exceptions\InsufficientBalanceException;
 use App\Repository\Account\AccountRepository;
 use App\Repository\AccountBalance\AccountBalanceRepository;
@@ -29,7 +30,9 @@ class AccountBalanceService
     {
         $account = $this->accountRepository->getById($data['account_id']);
 
-        throw_if(!$account, new NotFoundHttpException('0'));
+        if (!$account) {
+            throw new AccountNotFoundException();
+        }
 
         $withdraws = $this->accountBalanceRepository->sumWithdraw($data['account_id']);
         $deposits = $this->accountBalanceRepository->sumDeposit($data['account_id']);
@@ -47,12 +50,18 @@ class AccountBalanceService
 
             if (isset($data['origin'])) {
                 $isValidAccount = $this->accountRepository->getById($data['origin']);
-                throw_if(!$isValidAccount, new NotFoundHttpException('0'));
+
+                if (!$isValidAccount) {
+                    throw new AccountNotFoundException();
+                }
             }
 
             if (isset($data['destination'])) {
                 $isValidDestinationAccount = $this->accountRepository->getById($data['destination']);
-                throw_if(!$isValidDestinationAccount, new NotFoundHttpException('0'));
+
+                if (!$isValidDestinationAccount) {
+                    throw new AccountNotFoundException();
+                }
             }
 
             match ($transactionType) {
