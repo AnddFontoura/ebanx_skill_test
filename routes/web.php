@@ -8,6 +8,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('balance', [AccountBalanceController::class, 'getBalance']);
-Route::post('event', [AccountBalanceController::class, 'newBalance']);
-Route::post('reset', [CleanerController::class, 'clean']);
+Route::get('/balance', [AccountBalanceController::class, 'getBalance'])->name('balance');
+Route::post('/event', [AccountBalanceController::class, 'newBalance'])->name('event');
+Route::post('/reset', [CleanerController::class, 'clean'])->name('reset');

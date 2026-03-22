@@ -31,4 +31,4 @@ RUN chmod +x /start.sh
 # Define como ponto de entrada
 ENTRYPOINT ["/start.sh"]
 
-EXPOSE 8199
+EXPOSE 8109

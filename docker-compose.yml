@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
     back:
         container_name: ebanx_test
@@ -14,7 +12,7 @@ services:
         networks:
             - intra_network
         ports:
-            - "8199:8199"
+            - "8109:8109"
         user: "${UID}:${GID}"
     nginx:
         image: nginx:alpine
@@ -28,7 +26,6 @@ services:
         networks:
             - intra_network
     db:
-        container_name: ebanx_test_db
         restart: unless-stopped
         image: mysql:8.0
         ports:

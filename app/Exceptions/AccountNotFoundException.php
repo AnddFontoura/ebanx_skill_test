@@ -11,7 +11,8 @@ class AccountNotFoundException extends Exception
     public function render(): JsonResponse
     {
         return response()->json(
-            0
-        , Response::HTTP_NOT_FOUND);
+            0,
+            Response::HTTP_NOT_FOUND
+        );
     }
 }
