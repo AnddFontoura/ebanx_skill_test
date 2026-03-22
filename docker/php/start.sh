@@ -24,7 +24,7 @@ fi
 php artisan migrate
 php artisan db:seed
 
-echo "🎯 Iniciando servidor Laravel na porta 8199..."
-php artisan serve --host=0.0.0.0 --port=8109
+echo "🎯 Iniciando servidor Laravel na porta 8135..."
+php artisan serve --host=0.0.0.0 --port=8135
 
 php artisan storage:link

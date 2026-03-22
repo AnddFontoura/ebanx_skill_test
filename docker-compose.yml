@@ -12,12 +12,12 @@ services:
         networks:
             - intra_network
         ports:
-            - "8109:8109"
+            - "8135:8135"
         user: "${UID}:${GID}"
     nginx:
         image: nginx:alpine
         ports:
-            - "8080:80"
+            - "8089:80"
         volumes:
             - ./:/var/www
             - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf

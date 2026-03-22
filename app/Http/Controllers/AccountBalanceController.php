@@ -27,6 +27,7 @@ class AccountBalanceController extends Controller
         $this->accountBalanceService->newBalance($data);
         $response = $this->accountBalanceService->createResponse($data);
 
+        dd($response);
         return response()->json($response, Response::HTTP_OK);
     }
 
