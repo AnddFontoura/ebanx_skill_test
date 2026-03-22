@@ -94,4 +94,50 @@ class AccountEventWithdrawEndpointTest extends TestCase
         ]);
         $response->assertStatus(422);
     }
+
+    public function test_event_url_without_amount_parameters()
+    {
+        $mock = [
+            "origin" => "100",
+            "type" => "withdraw",
+        ];
+
+        $accountWithdraw = Accounts::factory()->create([
+            'id' => 100,
+        ]);
+
+        AccountBalance::factory()->create([
+            'account_id' => $accountWithdraw->id,
+            'amount' => 500,
+        ]);
+
+        $response = $this->postJson('/event', $mock);
+
+        $response->assertJson([
+            'message' => 'The amount field is required.',
+            'errors' => [
+                'amount' => ['The amount field is required.']
+            ]
+        ]);
+        $response->assertStatus(422);
+    }
+
+
+    public function test_event_url_without_founds()
+    {
+        $mock = [
+            "origin" => "100",
+            "type" => "withdraw",
+            "amount" => '100'
+        ];
+
+        Accounts::factory()->create([
+            'id' => 100,
+        ]);
+
+        $response = $this->postJson('/event', $mock);
+
+        $response->assertJson(["message" => "Insufficient founds"]);
+        $response->assertStatus(422);
+    }
 }

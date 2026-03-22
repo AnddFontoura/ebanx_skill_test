@@ -3,6 +3,7 @@
 namespace App\Service\AccountBalance;
 
 use App\AccountBalanceEnum;
+use App\Exceptions\InsufficientBalanceException;
 use App\Repository\Account\AccountRepository;
 use App\Repository\AccountBalance\AccountBalanceRepository;
 use Exception;
@@ -80,7 +81,7 @@ class AccountBalanceService
 
         $balance = $this->getBalance($data);
         if ($balance < $data['amount']) {
-            abort(422, 'Insufficient balance');
+            throw new InsufficientBalanceException();
         }
 
         $this->accountBalanceRepository->create($data);
