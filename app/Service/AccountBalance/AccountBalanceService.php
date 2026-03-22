@@ -7,6 +7,7 @@ use App\Repository\Account\AccountRepository;
 use App\Repository\AccountBalance\AccountBalanceRepository;
 use Exception;
 use http\Exception\InvalidArgumentException;
+use HttpException;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -78,7 +79,9 @@ class AccountBalanceService
         $data['account_id'] = $data['origin'];
 
         $balance = $this->getBalance($data);
-        throw_if($balance < $data['amount'], new InvalidArgumentException('Insufficient balance'));
+        if ($balance < $data['amount']) {
+            abort(422, 'Insufficient balance');
+        }
 
         $this->accountBalanceRepository->create($data);
     }

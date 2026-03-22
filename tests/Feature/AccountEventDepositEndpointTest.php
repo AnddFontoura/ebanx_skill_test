@@ -24,6 +24,62 @@ class AccountEventDepositEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
+        $response->assertJson([
+            "destination" => [
+                "id" => "100",
+                "balance" => 10
+            ]
+        ]);
         $response->assertStatus(200);
+    }
+
+
+    public function test_event_url_without_amount_parameters()
+    {
+        $mock = [
+            "type" => "deposit",
+            "destination" => "100",
+        ];
+
+        $response = $this->postJson('/event', $mock);
+
+        $response->assertJson([
+            'message' => 'The amount field is required.',
+            'errors' => [
+                'amount' => ['The amount field is required.']
+            ]
+        ]);
+        $response->assertStatus(422);
+    }
+
+    public function test_event_url_without_type_parameters()
+    {
+        $mock = [
+            "destination" => "100",
+            "amount" => 10
+        ];
+
+        $response = $this->postJson('/event', $mock);
+
+        $response->assertJson([
+            'message' => 'The type field is required.',
+            'errors' => [
+                'type' => ['The type field is required.']
+            ]
+        ]);
+        $response->assertStatus(422);
+    }
+
+
+    public function test_event_url_without_destination_parameters()
+    {
+        $mock = [
+            "amount" => 10,
+            "type" => "deposit",
+        ];
+
+        $response = $this->postJson('/event', $mock);
+
+        $response->assertStatus(422);
     }
 }
