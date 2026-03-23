@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Service\Cleaner\CleanerService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CleanerController extends Controller
 {
@@ -15,5 +16,7 @@ class CleanerController extends Controller
 
     public function clean() {
         $this->cleanerService->clearData();
+
+        return response()->json(['OK'], Response::HTTP_OK);
     }
 }

@@ -38,7 +38,7 @@ class AccountEventWithdrawEndpointTest extends TestCase
                 "balance" => 490
             ]
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 
     public function test_event_url_without_type_parameters()

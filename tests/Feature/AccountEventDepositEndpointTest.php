@@ -30,7 +30,7 @@ class AccountEventDepositEndpointTest extends TestCase
                 "balance" => 10
             ]
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 
 
