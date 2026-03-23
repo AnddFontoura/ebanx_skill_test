@@ -76,12 +76,8 @@ class AccountEventTransferEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The type field is required.',
-            'errors' => [
-                'type' => ['The type field is required.']
-            ]
-        ]);
+
+        $this->invalidParameters($response, 'type');
         $response->assertStatus(422);
     }
 
@@ -109,12 +105,8 @@ class AccountEventTransferEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The destination field is required.',
-            'errors' => [
-                'destination' => ['The destination field is required.']
-            ]
-        ]);
+
+        $this->invalidParameters($response, 'destination');
         $response->assertStatus(422);
     }
 
@@ -142,12 +134,8 @@ class AccountEventTransferEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The origin field is required.',
-            'errors' => [
-                'origin' => ['The origin field is required.']
-            ]
-        ]);
+
+        $this->invalidParameters($response, 'origin');
         $response->assertStatus(422);
     }
 
@@ -173,7 +161,6 @@ class AccountEventTransferEndpointTest extends TestCase
         $response = $this->postJson('/event', $mock);
 
         $response->assertContent("0");
-
         $response->assertStatus(404);
     }
 
@@ -189,7 +176,6 @@ class AccountEventTransferEndpointTest extends TestCase
         $response = $this->postJson('/event', $mock);
 
         $response->assertContent("0");
-
         $response->assertStatus(404);
     }
 
@@ -222,7 +208,6 @@ class AccountEventTransferEndpointTest extends TestCase
         $response->assertJson([
             'message' => 'Insufficient founds'
         ]);
-
         $response->assertStatus(422);
     }
 }

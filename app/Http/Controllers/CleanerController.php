@@ -17,6 +17,6 @@ class CleanerController extends Controller
     public function clean() {
         $this->cleanerService->clearData();
 
-        return response()->json(['OK'], Response::HTTP_OK);
+        return response()->setStatusCode(Response::HTTP_OK);
     }
 }

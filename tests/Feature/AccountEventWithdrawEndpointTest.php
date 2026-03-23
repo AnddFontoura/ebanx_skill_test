@@ -59,12 +59,8 @@ class AccountEventWithdrawEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The type field is required.',
-            'errors' => [
-                'type' => ['The type field is required.']
-            ]
-        ]);
+
+        $this->invalidParameters($response, 'type');
         $response->assertStatus(422);
     }
 
@@ -86,12 +82,8 @@ class AccountEventWithdrawEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The origin field is required.',
-            'errors' => [
-                'origin' => ['The origin field is required.']
-            ]
-        ]);
+
+        $this->invalidParameters($response, 'origin');
         $response->assertStatus(422);
     }
 
@@ -113,12 +105,8 @@ class AccountEventWithdrawEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The amount field is required.',
-            'errors' => [
-                'amount' => ['The amount field is required.']
-            ]
-        ]);
+
+        $this->invalidParameters($response, 'amount');
         $response->assertStatus(422);
     }
 

@@ -43,12 +43,7 @@ class AccountEventDepositEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The amount field is required.',
-            'errors' => [
-                'amount' => ['The amount field is required.']
-            ]
-        ]);
+        $this->invalidParameters($response, 'amount');
         $response->assertStatus(422);
     }
 
@@ -61,12 +56,7 @@ class AccountEventDepositEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
-        $response->assertJson([
-            'message' => 'The type field is required.',
-            'errors' => [
-                'type' => ['The type field is required.']
-            ]
-        ]);
+        $this->invalidParameters($response, 'type');
         $response->assertStatus(422);
     }
 
@@ -80,6 +70,7 @@ class AccountEventDepositEndpointTest extends TestCase
 
         $response = $this->postJson('/event', $mock);
 
+        $this->invalidParameters($response, 'destination');
         $response->assertStatus(422);
     }
 }
