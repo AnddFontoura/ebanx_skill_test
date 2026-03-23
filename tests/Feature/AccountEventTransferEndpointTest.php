@@ -12,6 +12,8 @@ class AccountEventTransferEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected string $url = '/event';
+
     public function test_event_url_with_valid_parameters()
     {
         $mock = [
@@ -35,7 +37,7 @@ class AccountEventTransferEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $response->assertJson([
@@ -74,7 +76,7 @@ class AccountEventTransferEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $this->invalidParameters($response, 'type');
@@ -103,7 +105,7 @@ class AccountEventTransferEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $this->invalidParameters($response, 'destination');
@@ -132,7 +134,7 @@ class AccountEventTransferEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $this->invalidParameters($response, 'origin');
@@ -158,7 +160,7 @@ class AccountEventTransferEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $response->assertContent("0");
         $response->assertStatus(404);
@@ -173,7 +175,7 @@ class AccountEventTransferEndpointTest extends TestCase
             "origin" => "666",
         ];
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $response->assertContent("0");
         $response->assertStatus(404);
@@ -202,7 +204,7 @@ class AccountEventTransferEndpointTest extends TestCase
             'amount' => 50,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $response->assertJson([

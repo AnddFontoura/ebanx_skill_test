@@ -10,6 +10,7 @@ class AccountEventDepositEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected string $url = '/event';
     public function test_event_url_with_valid_parameters()
     {
         $mock = [
@@ -22,7 +23,7 @@ class AccountEventDepositEndpointTest extends TestCase
             'id' => 100,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $response->assertJson([
             "destination" => [
@@ -41,7 +42,7 @@ class AccountEventDepositEndpointTest extends TestCase
             "destination" => "100",
         ];
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $this->invalidParameters($response, 'amount');
         $response->assertStatus(422);
@@ -54,7 +55,7 @@ class AccountEventDepositEndpointTest extends TestCase
             "amount" => 10
         ];
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $this->invalidParameters($response, 'type');
         $response->assertStatus(422);
@@ -68,7 +69,7 @@ class AccountEventDepositEndpointTest extends TestCase
             "type" => "deposit",
         ];
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $this->invalidParameters($response, 'destination');
         $response->assertStatus(422);

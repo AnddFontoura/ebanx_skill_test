@@ -12,6 +12,8 @@ class AccountEventWithdrawEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected string $url = '/event';
+
     public function test_event_url_with_valid_parameters()
     {
         $mock = [
@@ -30,7 +32,7 @@ class AccountEventWithdrawEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $response->assertJson([
             "origin" => [
@@ -57,7 +59,7 @@ class AccountEventWithdrawEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $this->invalidParameters($response, 'type');
@@ -80,7 +82,7 @@ class AccountEventWithdrawEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $this->invalidParameters($response, 'origin');
@@ -103,7 +105,7 @@ class AccountEventWithdrawEndpointTest extends TestCase
             'amount' => 500,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
 
         $this->invalidParameters($response, 'amount');
@@ -123,7 +125,7 @@ class AccountEventWithdrawEndpointTest extends TestCase
             'id' => 100,
         ]);
 
-        $response = $this->postJson('/event', $mock);
+        $response = $this->postJson($this->url, $mock);
 
         $response->assertJson(["message" => "Insufficient founds"]);
         $response->assertStatus(422);
